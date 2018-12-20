@@ -10,7 +10,9 @@ class Quiz {
         this.answers.push(this.quiz.correct_answer);
         
         this.correctAnswer = this.quiz.correct_answer;
-    }  
+    }
+
+    // 解答一覧をシャッフルする機能
 }
 
 fetch("https://opentdb.com/api.php?amount=10")
@@ -28,4 +30,9 @@ fetch("https://opentdb.com/api.php?amount=10")
         console.log("問題文 : ", quiz.question);
         console.log("解答一覧 : ", quiz.answers);
         console.log("正解 : ", quiz.correctAnswer);
+
+        // appendCurrentQuizToContainer関数の実行
     });  
+
+// appendCurrentQuizToContainer関数の定義
+
