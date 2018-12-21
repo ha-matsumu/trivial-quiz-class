@@ -23,6 +23,6 @@ fetch("https://opentdb.com/api.php?amount=10")
 
     console.log("クイズデータ一覧 : ", quizDatas);
     quizDataList.forEach((quizData, value) => {
-        console.log("クイズ", value+1, " : ", quizData);
+      console.log("クイズ", value + 1, " : ", quizData);
     });
   });
