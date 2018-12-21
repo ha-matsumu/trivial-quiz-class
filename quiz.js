@@ -16,11 +16,12 @@ fetch("https://opentdb.com/api.php?amount=10")
   .then(response => {
     return response.results;
   })
-  .then(datas => {
-    datas.forEach(data => {
-      quizDataList.push(new Quiz(data));
+  .then(quizDatas => {
+    quizDatas.forEach(quizData => {
+      quizDataList.push(new Quiz(quizData));
     });
 
+    console.log("クイズデータ一覧 : ", quizDatas);
     quizDataList.forEach((quizData, value) => {
         console.log("クイズ", value+1, " : ", quizData);
     });
