@@ -26,6 +26,7 @@ fetch("https://opentdb.com/api.php?amount=10")
       quizInstances.push(new Quiz(quizData));
     });
 
+    // TODO:あとで消す
     console.log("クイズデータ一覧 : ", quizInstances);
     quizInstances.forEach((quizData, value) => {
       console.log("----QUIZ.", value + 1, "----");
