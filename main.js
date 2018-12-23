@@ -19,9 +19,6 @@ fetch("https://opentdb.com/api.php?amount=10")
       quizInstances.push(new Quiz(quizData));
     });
 
-    // TODO:あとで消す
-    console.log("クイズデータ一覧 : ", quizInstances);
-
     appendCurrentQuizToContainer(quizInstances[currentQuizIndex]);
   });
 
