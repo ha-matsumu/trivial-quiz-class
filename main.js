@@ -59,6 +59,7 @@ function finishQuiz() {
   const resultText = `Your Score<br>${numberOfCorrectAnswers} / ${
     quizInstances.length
   }`;
+  
   divCurrentQuizQuestion.textContent = "";
   divNumberOfCorrectAnswers.innerHTML = resultText;
   while (ulCurrentQuizAnswers.firstChild) {
