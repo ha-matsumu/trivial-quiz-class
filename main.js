@@ -46,7 +46,10 @@ function appendCurrentQuizToContainer(_currentQuizInstance) {
       if (currentQuizIndex === quizInstances.length) {
         finishQuiz(quizInstances);
       } else {
-        checkAnswer(liCurrentQuizAnswer, _currentQuizInstance);
+        checkAnswer(
+          liCurrentQuizAnswer.textContent,
+          _currentQuizInstance.correctAnswer
+        );
         appendCurrentQuizToContainer(quizInstances[currentQuizIndex]);
       }
     });
@@ -66,15 +69,13 @@ function finishQuiz() {
   }
 }
 
-function checkAnswer(_liCurrentQuizAnswer, _currentQuizInstance) {
-  if (_liCurrentQuizAnswer.textContent === _currentQuizInstance.correctAnswer) {
+function checkAnswer(_clickedAnswer, _correctAnswer) {
+  if (_clickedAnswer === _correctAnswer) {
     numberOfCorrectAnswers++;
     alert("You got it right!!");
   } else {
     alert(
-      `You got it wrong. The answer of this question is "${
-        _currentQuizInstance.correctAnswer
-      }".`
+      `You got it wrong. The answer of this question is "${_correctAnswer}".`
     );
   }
 }
