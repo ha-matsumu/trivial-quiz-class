@@ -1,7 +1,11 @@
 const divCurrentQuizQuestion = document.getElementById("currentQuizQuestion");
 const ulCurrentQuizAnswers = document.getElementById("currentQuizAnswers");
+const divNumberOfCorrectAnswers = document.getElementById(
+  "numberOfCorrectAnswers"
+);
 const quizInstances = [];
 let currentQuizIndex = 0;
+let numberOfCorrectAnswers = 0;
 
 class Quiz {
   constructor(_quizData) {
@@ -62,6 +66,29 @@ function appendCurrentQuizToContainer(_currentQuizInstance) {
   shuffledAnswers.forEach(shuffledAnswer => {
     const liCurrentQuizAnswer = document.createElement("li");
     liCurrentQuizAnswer.textContent = shuffledAnswer;
+
+    liCurrentQuizAnswer.addEventListener("click", () => {
+      currentQuizIndex++;
+      if (currentQuizIndex === quizInstances.length) {
+        const resultText = `Your Score<br>${numberOfCorrectAnswers} / ${
+          quizInstances.length
+        }`;
+        divNumberOfCorrectAnswers.innerHTML = resultText;
+      } else {
+        if (liCurrentQuizAnswer.textContent === _currentQuizInstance.correctAnswer) {
+          numberOfCorrectAnswers++;
+          alert("You got it right!!");
+        } else {
+          alert(
+            `You got it wrong. The answer of this question is "${
+                _currentQuizInstance.correctAnswer
+            }".`
+          );
+        }
+        appendCurrentQuizToContainer(quizInstances[currentQuizIndex]);
+      }
+    });
+
     ulCurrentQuizAnswers.appendChild(liCurrentQuizAnswer);
   });
 }
