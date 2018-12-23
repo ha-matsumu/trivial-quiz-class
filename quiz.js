@@ -1,3 +1,5 @@
+const divCurrentQuizQuestion = document.getElementById("currentQuizQuestion");
+const ulCurrentQuizAnswers = document.getElementById("currentQuizAnswers");
 const quizInstances = [];
 let currentQuizIndex = 0;
 
@@ -11,20 +13,19 @@ class Quiz {
     this.type = _quizData.type;
   }
 
-  // 以下に解答一覧をシャッフルする機能の実装
   getShuffledAnswers() {
-      const answers = this.incorrectAnswers.slice();
-      answers.push(this.correctAnswer);
+    const answers = this.incorrectAnswers.slice();
+    answers.push(this.correctAnswer);
 
-      for (let i = 0; i < answers.length; i++) {
-        const random = Math.floor(Math.random() * (i + 1));
-  
-        const tmp = answers[i];
-        answers[i] = answers[random];
-        answers[random] = tmp;
-      }
+    for (let i = 0; i < answers.length; i++) {
+      const random = Math.floor(Math.random() * (i + 1));
 
-      return answers;
+      const tmp = answers[i];
+      answers[i] = answers[random];
+      answers[random] = tmp;
+    }
+
+    return answers;
   }
 }
 
@@ -42,14 +43,25 @@ fetch("https://opentdb.com/api.php?amount=10")
 
     // TODO:あとで消す
     console.log("クイズデータ一覧 : ", quizInstances);
-    quizInstances.forEach((quizInstance, value) => {
-      console.log("----QUIZ No.", value + 1, "----");
-      console.log("category", quizInstance.category);
-      console.log("correct_answer : ", quizInstance.correctAnswer);
-      console.log("difficulty: ", quizInstance.difficulty);
-      console.log("incorrect_answers : ", quizInstance.incorrectAnswers);
-      console.log("question : ", quizInstance.question);
-      console.log("type : ", quizInstance.type);
-      console.log("shuffled_answers : ", quizInstance.getShuffledAnswers());
-    });
+
+    appendCurrentQuizToContainer(quizInstances[currentQuizIndex]);
   });
+
+function appendCurrentQuizToContainer(_currentQuizInstance) {
+  const currentQuestionText = `Q${currentQuizIndex + 1}. ${
+    _currentQuizInstance.question
+  }`;
+  const shuffledAnswers = _currentQuizInstance.getShuffledAnswers();
+
+  divCurrentQuizQuestion.textContent = currentQuestionText;
+
+  while (ulCurrentQuizAnswers.firstChild) {
+    ulCurrentQuizAnswers.removeChild(ulCurrentQuizAnswers.firstChild);
+  }
+
+  shuffledAnswers.forEach(shuffledAnswer => {
+    const liCurrentQuizAnswer = document.createElement("li");
+    liCurrentQuizAnswer.textContent = shuffledAnswer;
+    ulCurrentQuizAnswers.appendChild(liCurrentQuizAnswer);
+  });
+}
